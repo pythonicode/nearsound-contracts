@@ -39,7 +39,7 @@ impl Contract {
             // Set the owner ID equal to the receiver ID passed into the function
             owner_id: receiver_id.clone(),
             // Set the author ID equal to the account ID that minted the token
-            author_id: receiver_id.clone(),
+            author_id: caller,
             // Set the approved account IDs to the default value (an empty map)
             approved_account_ids: Default::default(),
             // Next approval ID is set to 0
@@ -57,8 +57,12 @@ impl Contract {
         // Parse and Index Metadata For Enumeration w/ Search
         self.internal_add_token_to_search(&artist, &token_id);
         self.internal_add_token_to_search(&metadata.title, &token_id);
-        for token in metadata.description.split_whitespace() {
-            self.internal_add_token_to_search(&token, &token_id);
+        let desc = metadata.description.clone();
+        if let Some(desc) = desc {
+            for token in desc.split_whitespace() {
+                let token_str = String::from(token);
+                self.internal_add_token_to_search(&token_str, &token_id);
+            }
         }
 
         //insert the token ID and metadata
