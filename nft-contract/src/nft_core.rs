@@ -7,7 +7,7 @@ const MIN_GAS_FOR_NFT_TRANSFER_CALL: Gas = Gas(100_000_000_000_000);
 const NO_DEPOSIT: Balance = 0;
 
 pub trait NonFungibleTokenCore {
-    //transfers an NFT to a receiver ID
+    // Transfers an NFT to a receiver ID
     fn nft_transfer(
         &mut self,
         receiver_id: AccountId,

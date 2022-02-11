@@ -1,14 +1,14 @@
 use crate::*;
 pub type TokenId = String;
-//defines the payout type we'll be returning as a part of the royalty standards.
+pub type Artist = String;
+pub type SearchTerm = String;
+
+// Defines the payout type we'll be returning as a part of the royalty standards.
 #[derive(Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Payout {
     pub payout: HashMap<AccountId, U128>,
-} 
-
-pub type Artist = String;
-pub type SearchTerm = String;
+}
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
 #[serde(crate = "near_sdk::serde")]
@@ -26,8 +26,8 @@ pub struct NFTContractMetadata {
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenMetadata {
     pub title: String, // ex. "Arch Nemesis: Mail Carrier" or "Parcel #5055"
-    pub artwork: String, // URL to artwork, preferably to decentralized, content-addressed storage
-    pub media: String, // URL to associated media, preferably to decentralized, content-addressed storage
+    pub audio: String, // URL to audio, preferably to decentralized, content-addressed storage
+    pub media: String, // URL to artwork, preferably to decentralized, content-addressed storage
     pub description: Option<String>, // Free-Form Description
     pub media_hash: Option<Base64VecU8>, // Base64-encoded sha256 hash of content referenced by the `media` field. Required if `media` is included.
     pub copies: Option<u64>, // Number of copies of this set of metadata in existence when token was minted.

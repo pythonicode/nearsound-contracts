@@ -13,6 +13,7 @@ pub use crate::mint::*;
 pub use crate::nft_core::*;
 pub use crate::approval::*;
 pub use crate::royalty::*;
+pub use crate::artist::*;
 pub use crate::events::*;
 
 mod internal;
@@ -21,7 +22,8 @@ mod enumeration;
 mod metadata; 
 mod mint; 
 mod nft_core; 
-mod royalty; 
+mod royalty;
+mod artist; 
 mod events;
 
 pub const NFT_METADATA_SPEC: &str = "nft-1.0.0"; /// NFT Standard Version
