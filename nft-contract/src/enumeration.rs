@@ -10,7 +10,7 @@ impl Contract {
 
     //Query for nft tokens on the contract regardless of the owner using pagination
     pub fn nft_tokens(&self, from_index: Option<U128>, limit: Option<u64>) -> Vec<JsonToken> {
-        //get a vector of the keys in the token_metadata_by_id collection.  
+        // Get a vector of the keys in the token_metadata_by_id collection.  
         let keys = self.token_metadata_by_id.keys_as_vector();
 
         //where to start pagination - if we have a from_index, we'll use that - otherwise start from 0 index
@@ -25,6 +25,34 @@ impl Contract {
             //we'll map the token IDs which are strings into Json Tokens
             .map(|token_id| self.nft_token(token_id.clone()).unwrap())
             //since we turned the keys into an iterator, we need to turn it back into a vector to return
+            .collect()
+    }
+
+    pub fn nft_tokens_for_search(&self, search_term: SearchTerm, from_index: Option<U128>, limit: Option<u64>) -> Vec<JsonToken> {
+        // Get the set of tokens for the search term
+        let tokens_for_search = self.tokens_per_search.get(&search_term);
+        // If there is tokens, we'll set the tokens variable
+        let tokens = if let Some(tokens_for_search) = tokens_for_search {
+            tokens_for_search
+        } else {
+            // If there is no tokens, we'll simply return an empty vector. 
+            return vec![];
+        };
+        // Convert the UnorderedSet into a vector of strings
+        let keys = tokens.as_vector();
+
+        // Where to start pagination
+        let start = u128::from(from_index.unwrap_or(U128(0)));
+
+        // Iterate through the keys vector
+        keys.iter()
+            // Skip to the index we specified in the start variable
+            .skip(start as usize) 
+            // Take the first "limit" elements in the vector. If we didn't specify a limit, use 0.
+            .take(limit.unwrap_or(0) as usize) 
+            // Map the token IDs into Json Tokens
+            .map(|token_id| self.nft_token(token_id.clone()).unwrap())
+            // Return as a vector
             .collect()
     }
 

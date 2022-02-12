@@ -6,18 +6,15 @@ impl Contract {
     pub fn nft_mint(
         &mut self,
         token_id: TokenId,
-        metadata: TokenMetadata,
+        mut metadata: TokenMetadata,
         receiver_id: AccountId,
         perpetual_royalties: Option<HashMap<AccountId, u32>>,
     ) {
         // Measure the initial storage being used on the contract
         let initial_storage_usage = env::storage_usage();
 
-        // Create caller variable and check that caller is receiver
-        let caller = env::predecessor_account_id();
-        assert_eq!(caller, receiver_id, "Cannot mint tokens to other accounts besides your own.");
-
         // Get the Artist name for the Account ID and panic if account is not an artist
+        let caller = env::predecessor_account_id();
         let artist = self.artist_by_account.get(&caller).expect("Artist privileges not setup for this account.");
 
         // Create a royalty map to store in the token
@@ -65,7 +62,8 @@ impl Contract {
             }
         }
 
-        //insert the token ID and metadata
+        // Update and insert the token metadata
+        metadata.artist = Some(artist);
         self.token_metadata_by_id.insert(&token_id, &metadata);
 
         //call the internal method for adding the token to the owner

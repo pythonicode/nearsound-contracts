@@ -25,7 +25,8 @@ pub struct NFTContractMetadata {
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenMetadata {
-    pub title: String, // ex. "Arch Nemesis: Mail Carrier" or "Parcel #5055"
+    pub title: String, // Title of the NFT
+    pub artist: Option<String>, // Artist of the NFT
     pub audio: String, // URL to audio, preferably to decentralized, content-addressed storage
     pub media: String, // URL to artwork, preferably to decentralized, content-addressed storage
     pub description: Option<String>, // Free-Form Description
