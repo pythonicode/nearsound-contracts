@@ -29,6 +29,7 @@ pub struct TokenMetadata {
     pub artist: Option<String>, // Artist of the NFT
     pub audio: String, // URL to audio, preferably to decentralized, content-addressed storage
     pub media: String, // URL to artwork, preferably to decentralized, content-addressed storage
+    pub featured: Option<String>, // Featured Artists
     pub description: Option<String>, // Free-Form Description
     pub media_hash: Option<Base64VecU8>, // Base64-encoded sha256 hash of content referenced by the `media` field. Required if `media` is included.
     pub copies: Option<u64>, // Number of copies of this set of metadata in existence when token was minted.

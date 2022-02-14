@@ -14,7 +14,6 @@ pub use crate::nft_core::*;
 pub use crate::approval::*;
 pub use crate::royalty::*;
 pub use crate::artist::*;
-pub use crate::music::*;
 pub use crate::events::*;
 
 mod internal;
@@ -25,7 +24,6 @@ mod mint;
 mod nft_core; 
 mod royalty;
 mod artist; 
-mod music;
 mod events;
 
 pub const NFT_METADATA_SPEC: &str = "nft-1.0.0"; /// NFT Standard Version
@@ -44,9 +42,6 @@ pub struct Contract {
     pub token_metadata_by_id: UnorderedMap<TokenId, TokenMetadata>, // Keeps track of Token metadata for a given Token ID
 
     pub artist_by_account: LookupMap<AccountId, Artist>, // Keep track of the Artist Name for a given Account ID
-
-    pub plays_by_song: LookupMap<TokenId, u64>, // Keep track of the number of plays for a given song
-    
 
     // Keeps track of Metadata for THIS contract
     pub metadata: LazyOption<NFTContractMetadata>,
