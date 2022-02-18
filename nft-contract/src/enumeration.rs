@@ -56,6 +56,14 @@ impl Contract {
             .collect()
     }
 
+    pub fn get_search_terms(&self) -> Vec<SearchTerm> {
+        let mut search_terms = Vec::new();
+        for search_term in self.tokens_per_search.keys() {
+            search_terms.push(search_term);
+        }
+        search_terms
+    }
+
     //get the total supply of NFTs for a given owner
     pub fn nft_supply_for_owner(
         &self,

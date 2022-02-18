@@ -202,7 +202,7 @@ impl NonFungibleTokenCore for Contract {
             //we return the JsonToken (wrapped by Some since we return an option)
             Some(JsonToken {
                 token_id,
-                owner_id: token.owner_id,
+                author_id: token.author_id,
                 metadata,
                 approved_account_ids: token.approved_account_ids,
                 royalty: token.royalty,
